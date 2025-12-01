@@ -1,0 +1,21 @@
+# Chip Chop Backend Requirements
+# Note: Requires Python 3.10, 3.11, or 3.12 (Python 3.14 is not yet supported)
+
+fastapi>=0.109.0,<1.0.0
+uvicorn[standard]>=0.27.0,<1.0.0
+python-dotenv>=1.0.0,<2.0.0
+pydantic>=2.5.0,<3.0.0
+pydantic-settings>=2.1.0,<3.0.0
+python-jose[cryptography]>=3.3.0,<4.0.0
+passlib[bcrypt]>=1.7.4,<2.0.0
+python-multipart>=0.0.6,<1.0.0
+httpx>=0.26.0,<1.0.0
+aiofiles>=23.2.0,<25.0.0
+
+# Supabase - use postgrest directly for better compatibility
+postgrest>=0.16.0,<1.0.0
+httpx>=0.26.0
+
+# Optional: For background tasks (requires Redis)
+# celery>=5.3.0,<6.0.0
+# redis>=5.0.0,<6.0.0
