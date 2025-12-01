@@ -4,7 +4,6 @@ import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, ChevronLeft } from 'lucid
 import { useCart } from '@/context/CartContext'
 import { formatPrice } from '@/lib/utils'
 import Button from '@/components/ui/Button'
-import SectionHeading from '@/components/ui/SectionHeading'
 
 export default function CartPage() {
   const {
@@ -220,4 +219,3 @@ export default function CartPage() {
     </motion.div>
   )
 }
-

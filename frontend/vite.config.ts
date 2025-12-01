@@ -3,12 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
-  plugins: [
-    react({
-      // Enable React Fast Refresh for faster HMR
-      fastRefresh: true,
-    }),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -24,25 +19,20 @@ export default defineConfig({
     },
   },
   build: {
-    // Optimize build output
     target: 'esnext',
     minify: 'esbuild',
     sourcemap: false,
-    // Split chunks for better caching
     rollupOptions: {
       output: {
         manualChunks: {
-          // Vendor chunks
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'animation-vendor': ['framer-motion'],
           'ui-vendor': ['lucide-react', 'swiper'],
         },
       },
     },
-    // Reduce chunk size warnings threshold
     chunkSizeWarningLimit: 1000,
   },
-  // Optimize dependencies
   optimizeDeps: {
     include: [
       'react',
@@ -54,7 +44,6 @@ export default defineConfig({
       'tailwind-merge',
     ],
   },
-  // Enable CSS code splitting
   css: {
     devSourcemap: true,
   },

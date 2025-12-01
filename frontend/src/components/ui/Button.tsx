@@ -1,15 +1,16 @@
-import { forwardRef, ButtonHTMLAttributes, memo } from 'react'
-import { motion } from 'framer-motion'
+import { forwardRef, memo } from 'react'
+import { motion, HTMLMotionProps } from 'framer-motion'
 import { useTheme } from '@/context/ThemeContext'
 import { cn } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
   size?: 'sm' | 'md' | 'lg'
   isLoading?: boolean
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
+  children?: React.ReactNode
 }
 
 const sizes = {
