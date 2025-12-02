@@ -10,8 +10,6 @@ import {
   Facebook,
   Twitter
 } from 'lucide-react'
-import { useTheme } from '@/context/ThemeContext'
-import { cn } from '@/lib/utils'
 import toast from 'react-hot-toast'
 
 const footerLinks = {
@@ -43,8 +41,6 @@ const socialLinks = [
 
 const Footer = memo(function Footer() {
   const [email, setEmail] = useState('')
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
 
   const handleSubscribe = useCallback((e: React.FormEvent) => {
     e.preventDefault()
@@ -55,12 +51,7 @@ const Footer = memo(function Footer() {
   }, [email])
 
   return (
-    <footer className={cn(
-      "border-t",
-      isDark 
-        ? "bg-charcoal-900 border-charcoal-800" 
-        : "bg-gradient-to-b from-warm-50 to-warm-100 border-golden-200/50"
-    )}>
+    <footer className="bg-charcoal-900 border-t border-charcoal-800">
       {/* Main Footer */}
       <div className="container-custom section-padding py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -71,20 +62,11 @@ const Footer = memo(function Footer() {
                 <span className="text-2xl font-display font-bold text-charcoal-900">CC</span>
               </div>
               <div>
-                <h3 className={cn(
-                  "font-display text-xl font-bold",
-                  isDark ? "text-cream-100" : "text-charcoal-800"
-                )}>Chip Chop</h3>
-                <p className={cn(
-                  "text-xs tracking-widest uppercase",
-                  isDark ? "text-golden-500" : "text-golden-600"
-                )}>Food Lounge</p>
+                <h3 className="font-display text-xl font-bold text-cream-100">Chip Chop</h3>
+                <p className="text-xs tracking-widest uppercase text-golden-500">Food Lounge</p>
               </div>
             </Link>
-            <p className={cn(
-              "leading-relaxed",
-              isDark ? "text-charcoal-300" : "text-charcoal-600"
-            )}>
+            <p className="text-charcoal-300 leading-relaxed">
               Experience culinary excellence with every bite. Premium dining and delivery 
               service bringing you the finest flavors of Lagos and beyond.
             </p>
@@ -94,18 +76,10 @@ const Footer = memo(function Footer() {
                   key={social.label}
                   href={social.href}
                   whileTap={{ scale: 0.95 }}
-                  className={cn(
-                    "p-3 rounded-xl border transition-all duration-200",
-                    isDark
-                      ? "bg-charcoal-800 border-charcoal-700 hover:border-golden-600/50 hover:bg-golden-500/10"
-                      : "bg-white border-golden-200/50 hover:border-golden-400/50 hover:bg-golden-50 shadow-soft hover:shadow-medium"
-                  )}
+                  className="p-3 rounded-xl border bg-charcoal-800 border-charcoal-700 hover:border-golden-600/50 hover:bg-golden-500/10 transition-all duration-200"
                   aria-label={social.label}
                 >
-                  <social.icon className={cn(
-                    "w-5 h-5",
-                    isDark ? "text-cream-200" : "text-golden-700"
-                  )} />
+                  <social.icon className="w-5 h-5 text-cream-200" />
                 </motion.a>
               ))}
             </div>
@@ -113,21 +87,13 @@ const Footer = memo(function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className={cn(
-              "font-display text-lg font-semibold mb-6",
-              isDark ? "text-cream-100" : "text-charcoal-800"
-            )}>Quick Links</h4>
+            <h4 className="font-display text-lg font-semibold text-cream-100 mb-6">Quick Links</h4>
             <ul className="space-y-3">
               {footerLinks.quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     to={link.href}
-                    className={cn(
-                      "transition-colors duration-200",
-                      isDark 
-                        ? "text-charcoal-300 hover:text-golden-400" 
-                        : "text-charcoal-600 hover:text-golden-700"
-                    )}
+                    className="text-charcoal-300 hover:text-golden-400 transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -138,20 +104,12 @@ const Footer = memo(function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className={cn(
-              "font-display text-lg font-semibold mb-6",
-              isDark ? "text-cream-100" : "text-charcoal-800"
-            )}>Contact Us</h4>
+            <h4 className="font-display text-lg font-semibold text-cream-100 mb-6">Contact Us</h4>
             <ul className="space-y-4">
               {contactInfo.map((item) => (
                 <li key={item.text} className="flex items-start gap-3">
-                  <item.icon className={cn(
-                    "w-5 h-5 mt-0.5 flex-shrink-0",
-                    isDark ? "text-golden-500" : "text-golden-600"
-                  )} />
-                  <span className={isDark ? "text-charcoal-300" : "text-charcoal-600"}>
-                    {item.text}
-                  </span>
+                  <item.icon className="w-5 h-5 mt-0.5 flex-shrink-0 text-golden-500" />
+                  <span className="text-charcoal-300">{item.text}</span>
                 </li>
               ))}
             </ul>
@@ -159,14 +117,8 @@ const Footer = memo(function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h4 className={cn(
-              "font-display text-lg font-semibold mb-6",
-              isDark ? "text-cream-100" : "text-charcoal-800"
-            )}>Newsletter</h4>
-            <p className={cn(
-              "mb-4",
-              isDark ? "text-charcoal-300" : "text-charcoal-600"
-            )}>
+            <h4 className="font-display text-lg font-semibold text-cream-100 mb-6">Newsletter</h4>
+            <p className="text-charcoal-300 mb-4">
               Subscribe to get exclusive offers and updates on new dishes.
             </p>
             <form onSubmit={handleSubscribe} className="space-y-3">
@@ -190,16 +142,10 @@ const Footer = memo(function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className={cn(
-        "border-t",
-        isDark ? "border-charcoal-800" : "border-golden-200/50"
-      )}>
+      <div className="border-t border-charcoal-800">
         <div className="container-custom section-padding py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className={cn(
-              "text-sm",
-              isDark ? "text-charcoal-400" : "text-charcoal-500"
-            )}>
+            <p className="text-sm text-charcoal-400">
               © {new Date().getFullYear()} Chip Chop Food Lounge. All rights reserved.
             </p>
             <div className="flex gap-6">
@@ -207,12 +153,7 @@ const Footer = memo(function Footer() {
                 <Link
                   key={link.href}
                   to={link.href}
-                  className={cn(
-                    "text-sm transition-colors duration-200",
-                    isDark 
-                      ? "text-charcoal-400 hover:text-golden-400" 
-                      : "text-charcoal-500 hover:text-golden-700"
-                  )}
+                  className="text-sm text-charcoal-400 hover:text-golden-400 transition-colors duration-200"
                 >
                   {link.label}
                 </Link>

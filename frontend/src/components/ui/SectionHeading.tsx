@@ -1,6 +1,5 @@
 import { memo } from 'react'
 import { motion } from 'framer-motion'
-import { useTheme } from '@/context/ThemeContext'
 import { cn } from '@/lib/utils'
 
 interface SectionHeadingProps {
@@ -16,9 +15,6 @@ const SectionHeading = memo(function SectionHeading({
   align = 'center',
   className,
 }: SectionHeadingProps) {
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
-
   const alignmentClasses = {
     left: 'text-left',
     center: 'text-center',
@@ -32,10 +28,7 @@ const SectionHeading = memo(function SectionHeading({
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className={cn(
-            "font-medium tracking-widest uppercase text-sm",
-            isDark ? "text-golden-500" : "text-golden-600"
-          )}
+          className="font-medium tracking-widest uppercase text-sm text-golden-500"
         >
           {subtitle}
         </motion.p>
@@ -45,10 +38,7 @@ const SectionHeading = memo(function SectionHeading({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1 }}
-        className={cn(
-          "heading-display text-3xl md:text-4xl lg:text-5xl",
-          isDark ? "text-cream-100" : "text-charcoal-800"
-        )}
+        className="heading-display text-3xl md:text-4xl lg:text-5xl text-cream-100"
       >
         {title}
       </motion.h2>

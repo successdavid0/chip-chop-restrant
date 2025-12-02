@@ -1,4 +1,3 @@
-import { useTheme } from '@/context/ThemeContext'
 import { cn } from '@/lib/utils'
 
 interface SkeletonProps {
@@ -6,14 +5,10 @@ interface SkeletonProps {
 }
 
 export function Skeleton({ className }: SkeletonProps) {
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
-
   return (
     <div
       className={cn(
-        'animate-pulse rounded-lg',
-        isDark ? 'bg-charcoal-800/60' : 'bg-golden-200/40',
+        'animate-pulse rounded-lg bg-charcoal-800/60',
         className
       )}
     />
@@ -21,16 +16,8 @@ export function Skeleton({ className }: SkeletonProps) {
 }
 
 export function MenuCardSkeleton() {
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
-
   return (
-    <div className={cn(
-      "rounded-2xl overflow-hidden",
-      isDark 
-        ? "bg-charcoal-800/40 border border-charcoal-700/50" 
-        : "bg-white/80 border border-golden-200/50 shadow-card-light"
-    )}>
+    <div className="rounded-2xl overflow-hidden bg-charcoal-800/40 border border-charcoal-700/50">
       <Skeleton className="h-48 w-full rounded-none" />
       <div className="p-4 space-y-3">
         <Skeleton className="h-5 w-3/4" />
@@ -56,14 +43,8 @@ export function MenuGridSkeleton({ count = 8 }: { count?: number }) {
 }
 
 export function HeroSkeleton() {
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
-
   return (
-    <div className={cn(
-      "min-h-screen flex items-center",
-      isDark ? "bg-charcoal-900" : "bg-gradient-to-b from-warm-50 to-warm-100"
-    )}>
+    <div className="min-h-screen flex items-center bg-charcoal-900">
       <div className="container-custom section-padding">
         <div className="max-w-3xl space-y-6">
           <Skeleton className="h-8 w-48" />
@@ -81,16 +62,8 @@ export function HeroSkeleton() {
 }
 
 export function CartItemSkeleton() {
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
-
   return (
-    <div className={cn(
-      "p-4 flex gap-4 rounded-2xl",
-      isDark 
-        ? "bg-charcoal-800/40 border border-charcoal-700/50" 
-        : "bg-white/80 border border-golden-200/50 shadow-card-light"
-    )}>
+    <div className="p-4 flex gap-4 rounded-2xl bg-charcoal-800/40 border border-charcoal-700/50">
       <Skeleton className="w-24 h-24 rounded-xl flex-shrink-0" />
       <div className="flex-grow space-y-2">
         <Skeleton className="h-5 w-3/4" />

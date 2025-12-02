@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, memo } from 'react'
 import { motion } from 'framer-motion'
-import { useTheme } from '@/context/ThemeContext'
 import { cn } from '@/lib/utils'
 
 interface OptimizedImageProps {
@@ -23,8 +22,6 @@ const OptimizedImage = memo(function OptimizedImage({
   const [isLoaded, setIsLoaded] = useState(false)
   const [isInView, setIsInView] = useState(priority)
   const imgRef = useRef<HTMLDivElement>(null)
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
 
   useEffect(() => {
     if (priority) {
@@ -62,8 +59,7 @@ const OptimizedImage = memo(function OptimizedImage({
       {/* Placeholder/skeleton */}
       <div
         className={cn(
-          'absolute inset-0 transition-opacity duration-300',
-          isDark ? 'bg-charcoal-800' : 'bg-golden-100/60',
+          'absolute inset-0 transition-opacity duration-300 bg-charcoal-800',
           isLoaded ? 'opacity-0' : 'opacity-100 animate-pulse'
         )}
       />

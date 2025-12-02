@@ -1,6 +1,5 @@
 import { forwardRef, memo } from 'react'
 import { motion, HTMLMotionProps } from 'framer-motion'
-import { useTheme } from '@/context/ThemeContext'
 import { cn } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 
@@ -19,6 +18,13 @@ const sizes = {
   lg: 'px-8 py-4 text-lg',
 }
 
+const variants = {
+  primary: 'bg-golden-gradient text-charcoal-900 shadow-golden hover:shadow-golden-lg',
+  secondary: 'bg-transparent border-2 border-golden-500 text-golden-400 hover:bg-golden-500/10',
+  ghost: 'bg-transparent text-cream-200 hover:text-golden-400 hover:bg-golden-500/5',
+  danger: 'bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30',
+}
+
 const Button = memo(forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -34,20 +40,7 @@ const Button = memo(forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const { resolvedTheme } = useTheme()
-    const isDark = resolvedTheme === 'dark'
     const isDisabled = disabled || isLoading
-
-    const variants = {
-      primary: 'bg-golden-gradient text-charcoal-900 shadow-golden hover:shadow-golden-lg',
-      secondary: isDark
-        ? 'bg-transparent border-2 border-golden-500 text-golden-400 hover:bg-golden-500/10'
-        : 'bg-transparent border-2 border-golden-600 text-golden-700 hover:bg-golden-500/10',
-      ghost: isDark
-        ? 'bg-transparent text-cream-200 hover:text-golden-400 hover:bg-golden-500/5'
-        : 'bg-transparent text-charcoal-600 hover:text-golden-700 hover:bg-golden-500/10',
-      danger: 'bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30',
-    }
 
     return (
       <motion.button

@@ -2,16 +2,12 @@ import { memo, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight, MapPin, Clock, Star } from 'lucide-react'
-import { useTheme } from '@/context/ThemeContext'
-import { cn } from '@/lib/utils'
 import Button from '../ui/Button'
 
 const HERO_IMAGE = 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80'
 
 const HeroSection = memo(function HeroSection() {
   const [imageLoaded, setImageLoaded] = useState(false)
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
 
   useEffect(() => {
     const img = new Image()
@@ -24,11 +20,7 @@ const HeroSection = memo(function HeroSection() {
       {/* Background Image with loading state */}
       <div className="absolute inset-0">
         <div 
-          className={cn(
-            "absolute inset-0 transition-opacity duration-500",
-            imageLoaded ? 'opacity-0' : 'opacity-100',
-            isDark ? 'bg-charcoal-900' : 'bg-warm-50'
-          )}
+          className={`absolute inset-0 transition-opacity duration-500 bg-charcoal-900 ${imageLoaded ? 'opacity-0' : 'opacity-100'}`}
         />
         {imageLoaded && (
           <img
@@ -39,29 +31,13 @@ const HeroSection = memo(function HeroSection() {
             decoding="async"
           />
         )}
-        {/* Gradient overlays */}
-        <div className={cn(
-          "absolute inset-0",
-          isDark 
-            ? "bg-gradient-to-r from-charcoal-900/95 via-charcoal-900/80 to-charcoal-900/60"
-            : "bg-gradient-to-r from-warm-50/[0.97] via-warm-50/90 to-warm-50/70"
-        )} />
-        
-        {/* Light mode: warm accent glow */}
-        {!isDark && (
-          <div className="absolute inset-0 bg-gradient-to-br from-golden-400/5 via-transparent to-golden-500/10" />
-        )}
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal-900/95 via-charcoal-900/80 to-charcoal-900/60" />
       </div>
 
       {/* Decorative Elements */}
-      <div className={cn(
-        "absolute top-20 right-20 w-96 h-96 border rounded-full hidden lg:block",
-        isDark ? "border-golden-500/10" : "border-golden-500/15"
-      )} />
-      <div className={cn(
-        "absolute bottom-20 left-20 w-64 h-64 border rounded-full hidden lg:block",
-        isDark ? "border-golden-500/10" : "border-golden-500/15"
-      )} />
+      <div className="absolute top-20 right-20 w-96 h-96 border border-golden-500/10 rounded-full hidden lg:block" />
+      <div className="absolute bottom-20 left-20 w-64 h-64 border border-golden-500/10 rounded-full hidden lg:block" />
 
       {/* Content */}
       <div className="container-custom section-padding relative z-10 pt-24">
@@ -71,21 +47,10 @@ const HeroSection = memo(function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.4 }}
-            className={cn(
-              "inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-6",
-              isDark 
-                ? "bg-golden-500/10 border-golden-500/30"
-                : "bg-gradient-to-r from-golden-100 to-golden-50 border-golden-300 shadow-soft"
-            )}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-golden-500/10 border-golden-500/30 mb-6"
           >
-            <Star className={cn(
-              "w-4 h-4 fill-current",
-              isDark ? "text-golden-400" : "text-golden-600"
-            )} />
-            <span className={cn(
-              "text-sm font-medium",
-              isDark ? "text-golden-400" : "text-golden-800"
-            )}>Premium Dining Experience</span>
+            <Star className="w-4 h-4 text-golden-400 fill-current" />
+            <span className="text-sm font-medium text-golden-400">Premium Dining Experience</span>
           </motion.div>
 
           {/* Headline */}
@@ -93,10 +58,7 @@ const HeroSection = memo(function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.4 }}
-            className={cn(
-              "font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6",
-              isDark ? "text-cream-100" : "text-charcoal-800"
-            )}
+            className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-cream-100 mb-6"
           >
             Savor the
             <span className="block text-gradient">Extraordinary</span>
@@ -107,10 +69,7 @@ const HeroSection = memo(function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.4 }}
-            className={cn(
-              "text-lg md:text-xl leading-relaxed mb-8 max-w-xl",
-              isDark ? "text-charcoal-200" : "text-charcoal-600"
-            )}
+            className="text-lg md:text-xl leading-relaxed text-charcoal-200 mb-8 max-w-xl"
           >
             Experience culinary artistry at Chip Chop Food Lounge. From traditional Nigerian 
             delicacies to international fusion, every dish tells a story of passion and perfection.
@@ -147,20 +106,11 @@ const HeroSection = memo(function HeroSection() {
               { value: '4.9', label: 'Rating' },
               { value: '30min', label: 'Delivery' },
             ].map((stat, index) => (
-              <div key={index} className={cn(
-                "text-center p-3 rounded-xl",
-                !isDark && "bg-white/50 shadow-soft"
-              )}>
-                <div className={cn(
-                  "text-2xl md:text-3xl font-display font-bold",
-                  isDark ? "text-golden-400" : "text-golden-600"
-                )}>
+              <div key={index} className="text-center">
+                <div className="text-2xl md:text-3xl font-display font-bold text-golden-400">
                   {stat.value}
                 </div>
-                <div className={cn(
-                  "text-sm",
-                  isDark ? "text-charcoal-300" : "text-charcoal-500"
-                )}>{stat.label}</div>
+                <div className="text-sm text-charcoal-300">{stat.label}</div>
               </div>
             ))}
           </motion.div>
@@ -175,17 +125,11 @@ const HeroSection = memo(function HeroSection() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <div className="flex flex-col items-center gap-2">
-          <span className={cn(
-            "text-xs uppercase tracking-widest",
-            isDark ? "text-charcoal-400" : "text-charcoal-500"
-          )}>Scroll</span>
+          <span className="text-xs uppercase tracking-widest text-charcoal-400">Scroll</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className={cn(
-              "w-6 h-10 rounded-full border-2 flex justify-center pt-2",
-              isDark ? "border-charcoal-600" : "border-golden-400/50"
-            )}
+            className="w-6 h-10 rounded-full border-2 border-charcoal-600 flex justify-center pt-2"
           >
             <div className="w-1.5 h-1.5 bg-golden-500 rounded-full" />
           </motion.div>
@@ -199,21 +143,12 @@ const HeroSection = memo(function HeroSection() {
         transition={{ delay: 0.6, duration: 0.4 }}
         className="absolute right-8 top-1/2 -translate-y-1/2 hidden xl:block"
       >
-        <div className={cn(
-          "glass-card-golden p-4 space-y-2",
-          !isDark && "shadow-lifted"
-        )}>
-          <div className={cn(
-            "flex items-center gap-2",
-            isDark ? "text-golden-400" : "text-golden-700"
-          )}>
+        <div className="glass-card-golden p-4 space-y-2">
+          <div className="flex items-center gap-2 text-golden-400">
             <Clock className="w-4 h-4" />
             <span className="text-sm font-semibold">Open Now</span>
           </div>
-          <p className={cn(
-            "text-sm",
-            isDark ? "text-cream-200" : "text-charcoal-600"
-          )}>7:00 AM - 11:00 PM</p>
+          <p className="text-sm text-cream-200">7:00 AM - 11:00 PM</p>
         </div>
       </motion.div>
     </section>

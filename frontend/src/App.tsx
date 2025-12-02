@@ -21,43 +21,31 @@ const ContactPage = lazy(() => import('./pages/ContactPage'))
 
 // Context
 import { CartProvider } from './context/CartContext'
-import { ThemeProvider, useTheme } from './context/ThemeContext'
-
-// Toast wrapper that uses theme
-function ThemedToaster() {
-  const { resolvedTheme } = useTheme()
-  
-  return (
-    <Toaster
-      position="top-center"
-      toastOptions={{
-        duration: 3000,
-        style: {
-          background: resolvedTheme === 'dark' ? '#2D2D2D' : '#FFFFFF',
-          color: resolvedTheme === 'dark' ? '#FFF8F0' : '#1F1F1F',
-          border: `1px solid ${resolvedTheme === 'dark' ? 'rgba(212, 165, 40, 0.3)' : 'rgba(212, 165, 40, 0.5)'}`,
-          borderRadius: '12px',
-          boxShadow: resolvedTheme === 'dark' 
-            ? '0 4px 20px rgba(0, 0, 0, 0.3)' 
-            : '0 4px 20px rgba(0, 0, 0, 0.1)',
-        },
-        success: {
-          iconTheme: {
-            primary: '#D4A528',
-            secondary: resolvedTheme === 'dark' ? '#1F1F1F' : '#FFFFFF',
-          },
-        },
-      }}
-    />
-  )
-}
 
 function AppContent() {
   const location = useLocation()
 
   return (
     <>
-      <ThemedToaster />
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: '#2D2D2D',
+            color: '#FFF8F0',
+            border: '1px solid rgba(212, 165, 40, 0.3)',
+            borderRadius: '12px',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+          },
+          success: {
+            iconTheme: {
+              primary: '#D4A528',
+              secondary: '#1F1F1F',
+            },
+          },
+        }}
+      />
       <Layout>
         <Suspense fallback={<PageLoader />}>
           <AnimatePresence mode="wait">
@@ -80,11 +68,9 @@ function AppContent() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <CartProvider>
-        <AppContent />
-      </CartProvider>
-    </ThemeProvider>
+    <CartProvider>
+      <AppContent />
+    </CartProvider>
   )
 }
 

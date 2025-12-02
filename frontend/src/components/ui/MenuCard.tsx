@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Minus, Heart, Flame, Info } from 'lucide-react'
 import { MenuItem } from '@/lib/supabase'
 import { useCart } from '@/context/CartContext'
-import { useTheme } from '@/context/ThemeContext'
 import { formatPrice, cn } from '@/lib/utils'
 import toast from 'react-hot-toast'
 import OptimizedImage from './OptimizedImage'
@@ -41,8 +40,6 @@ const MenuCard = memo(function MenuCard({ item }: MenuCardProps) {
   const [isLiked, setIsLiked] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
   const { addItem } = useCart()
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
 
   const handleAddToCart = useCallback(() => {
     if (!item.is_available) return
@@ -77,9 +74,7 @@ const MenuCard = memo(function MenuCard({ item }: MenuCardProps) {
       transition={{ duration: 0.2 }}
       className={cn(
         'group relative overflow-hidden rounded-2xl will-change-transform',
-        isDark 
-          ? 'bg-charcoal-800/40 backdrop-blur-xl border border-charcoal-700/50 hover:border-golden-600/30'
-          : 'bg-white/90 border border-golden-200/50 shadow-card-light hover:shadow-card-hover-light hover:border-golden-400/40',
+        'bg-charcoal-800/40 backdrop-blur-xl border border-charcoal-700/50 hover:border-golden-600/30',
         !item.is_available && 'opacity-60'
       )}
     >
@@ -106,15 +101,12 @@ const MenuCard = memo(function MenuCard({ item }: MenuCardProps) {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={handleLike}
-          className={cn(
-            "absolute top-3 right-3 p-2 backdrop-blur-sm rounded-full transition-colors",
-            isDark ? "bg-charcoal-800/60" : "bg-white/80 shadow-soft"
-          )}
+          className="absolute top-3 right-3 p-2 backdrop-blur-sm rounded-full bg-charcoal-800/60 transition-colors"
         >
           <Heart
             className={cn(
               'w-5 h-5 transition-colors',
-              isLiked ? 'fill-red-500 text-red-500' : isDark ? 'text-cream-200' : 'text-charcoal-500'
+              isLiked ? 'fill-red-500 text-red-500' : 'text-cream-200'
             )}
           />
         </motion.button>
@@ -125,15 +117,9 @@ const MenuCard = memo(function MenuCard({ item }: MenuCardProps) {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={handleToggleDetails}
-          className={cn(
-            "absolute bottom-3 right-3 p-2 backdrop-blur-sm rounded-full transition-colors",
-            isDark ? "bg-charcoal-800/60" : "bg-white/80 shadow-soft"
-          )}
+          className="absolute bottom-3 right-3 p-2 backdrop-blur-sm rounded-full bg-charcoal-800/60 transition-colors"
         >
-          <Info className={cn(
-            "w-4 h-4",
-            isDark ? "text-cream-200" : "text-charcoal-500"
-          )} />
+          <Info className="w-4 h-4 text-cream-200" />
         </motion.button>
       </div>
 
@@ -141,16 +127,10 @@ const MenuCard = memo(function MenuCard({ item }: MenuCardProps) {
       <div className="p-4 space-y-3">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <h3 className={cn(
-              "font-display font-semibold line-clamp-1",
-              isDark ? "text-cream-100" : "text-charcoal-800"
-            )}>
+            <h3 className="font-display font-semibold text-cream-100 line-clamp-1">
               {item.name}
             </h3>
-            <p className={cn(
-              "text-sm line-clamp-2 mt-1",
-              isDark ? "text-charcoal-300" : "text-charcoal-500"
-            )}>
+            <p className="text-sm text-charcoal-300 line-clamp-2 mt-1">
               {item.description}
             </p>
           </div>
@@ -167,24 +147,12 @@ const MenuCard = memo(function MenuCard({ item }: MenuCardProps) {
               transition={{ duration: 0.2 }}
               className="overflow-hidden"
             >
-              <div className={cn(
-                "pt-3 border-t space-y-2",
-                isDark ? "border-charcoal-700" : "border-charcoal-200"
-              )}>
-                <p className={cn(
-                  "text-xs",
-                  isDark ? "text-charcoal-400" : "text-charcoal-500"
-                )}>
-                  <span className={isDark ? "text-golden-400" : "text-golden-600"}>{item.calories}</span> calories
+              <div className="pt-3 border-t border-charcoal-700 space-y-2">
+                <p className="text-xs text-charcoal-400">
+                  <span className="text-golden-400">{item.calories}</span> calories
                 </p>
-                <p className={cn(
-                  "text-xs",
-                  isDark ? "text-charcoal-400" : "text-charcoal-500"
-                )}>
-                  <span className={cn(
-                    "font-medium",
-                    isDark ? "text-cream-300" : "text-charcoal-700"
-                  )}>Ingredients: </span>
+                <p className="text-xs text-charcoal-400">
+                  <span className="font-medium text-cream-300">Ingredients: </span>
                   {item.ingredients.join(', ')}
                 </p>
               </div>
@@ -194,49 +162,28 @@ const MenuCard = memo(function MenuCard({ item }: MenuCardProps) {
 
         {/* Price & Actions */}
         <div className="flex items-center justify-between pt-2">
-          <span className={cn(
-            "text-xl font-display font-bold",
-            isDark ? "text-golden-400" : "text-golden-700"
-          )}>
+          <span className="text-xl font-display font-bold text-golden-400">
             {formatPrice(item.price)}
           </span>
           
           {item.is_available && (
             <div className="flex items-center gap-2">
               {/* Quantity Selector */}
-              <div className={cn(
-                "flex items-center gap-1 rounded-lg p-1",
-                isDark ? "bg-charcoal-800" : "bg-warm-100"
-              )}>
+              <div className="flex items-center gap-1 rounded-lg p-1 bg-charcoal-800">
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={decrementQuantity}
-                  className={cn(
-                    "p-1.5 rounded-md transition-colors",
-                    isDark ? "hover:bg-charcoal-700" : "hover:bg-warm-200"
-                  )}
+                  className="p-1.5 rounded-md hover:bg-charcoal-700 transition-colors"
                 >
-                  <Minus className={cn(
-                    "w-4 h-4",
-                    isDark ? "text-cream-200" : "text-charcoal-600"
-                  )} />
+                  <Minus className="w-4 h-4 text-cream-200" />
                 </motion.button>
-                <span className={cn(
-                  "w-8 text-center font-semibold",
-                  isDark ? "text-cream-100" : "text-charcoal-800"
-                )}>{quantity}</span>
+                <span className="w-8 text-center font-semibold text-cream-100">{quantity}</span>
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={incrementQuantity}
-                  className={cn(
-                    "p-1.5 rounded-md transition-colors",
-                    isDark ? "hover:bg-charcoal-700" : "hover:bg-warm-200"
-                  )}
+                  className="p-1.5 rounded-md hover:bg-charcoal-700 transition-colors"
                 >
-                  <Plus className={cn(
-                    "w-4 h-4",
-                    isDark ? "text-cream-200" : "text-charcoal-600"
-                  )} />
+                  <Plus className="w-4 h-4 text-cream-200" />
                 </motion.button>
               </div>
               
